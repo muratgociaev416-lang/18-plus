@@ -1,0 +1,16 @@
+from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+
+def get_main_menu():
+    kb = [[InlineKeyboardButton(text=name, callback_data=f"cat_{key}")] for key, name in CATEGORIES.items()]
+    kb.append([InlineKeyboardButton(text="🔍 Поиск", callback_data="search")])
+    kb.append([InlineKeyboardButton(text="❤️ Избранное", callback_data="favorites")])
+    kb.append([InlineKeyboardButton(text="📊 Профиль", callback_data="profile")])
+    return InlineKeyboardMarkup(inline_keyboard=kb)
+
+def get_after_media(category: str, file_id: str):
+    kb = [
+        [InlineKeyboardButton(text="🔄 Ещё из этой категории", callback_data=f"more_{category}")],
+        [InlineKeyboardButton(text="❤️ В избранное", callback_data=f"like_{category}_{file_id}")],
+        [InlineKeyboardButton(text="🔙 Главное меню", callback_data="main_menu")]
+    ]
+    return InlineKeyboardMarkup(inline_keyboard=kb)
